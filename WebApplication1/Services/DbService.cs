@@ -100,7 +100,7 @@ public class DbService : IDbService
             command.Parameters.AddWithValue("@IdOrder", orderId);
             command.Parameters.AddWithValue("@Amount", request.amount);
             command.Parameters.AddWithValue("@Total", price * request.amount);
-            command.Parameters.AddWithValue("@CreatedAt", request.createdAt);
+            command.Parameters.AddWithValue("@CreatedAt", DateTime.Now);
 
             newId = (int)command.ExecuteScalar();
             await transaction.CommitAsync();
