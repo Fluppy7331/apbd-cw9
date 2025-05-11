@@ -20,7 +20,11 @@ namespace WebApplication1.Controllers
         {
             if (request.idProduct <= 0 || request.idWarehouse <= 0 || request.amount <= 0)
             {
-                return BadRequest("Invalid product data.");
+                return BadRequest("IdProduct, IdWarehouse oraz Amount musi byc większe niż 0.");
+            }
+            if (request.createdAt == default)
+            {
+                return BadRequest("Pole 'createdAt' musi być poprawnie wypełnione.");
             }
             try
             {
