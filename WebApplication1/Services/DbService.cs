@@ -67,11 +67,12 @@ public class DbService : IDbService
                 {
                     throw new NotFoundException("Nie znaleziono zamówienia zakupu produktu w tabeli Order.");
                 }
+
                 orderId = reader.GetInt32(0);
                 price = reader.GetDecimal(1);
             }
-            
-            
+
+
             command.Parameters.Clear();
             command.CommandText = @"SELECT 1 FROM Product_Warehouse WHERE 
                                    IdOrder = @IdOrder";
@@ -83,11 +84,12 @@ public class DbService : IDbService
             }
 
             command.Parameters.Clear();
-            command.CommandText = @"UPDATE Product_Warehouse SET 
-                                   FulfilledAt = @FulfilledAt,
+            command.CommandText = @"UPDATE [Order] SET 
+                                   FulfilledAt = @FulfilledAt
                                    WHERE IdOrder = @IdOrder";
             command.Parameters.AddWithValue("@FulfilledAt", DateTime.Now);
             command.Parameters.AddWithValue("@IdOrder", orderId);
+            await command.ExecuteNonQueryAsync();
 
             command.Parameters.Clear();
             command.CommandText = @"INSERT INTO Product_Warehouse (IdWarehouse,IdProduct,IdOrder,Amount,Price,CreatedAt)
