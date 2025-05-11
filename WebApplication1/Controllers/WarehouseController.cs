@@ -26,6 +26,7 @@ namespace WebApplication1.Controllers
             {
                 return BadRequest("Pole 'createdAt' musi być poprawnie wypełnione.");
             }
+            
             try
             {
                 int newProductId = await _productService.AddProductToWarehouse(request);
